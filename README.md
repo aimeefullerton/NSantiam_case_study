@@ -1,10 +1,10 @@
-# PNW future daily stream temperatures
+# North Santiam case study: thermal habitats above and below dams
 
-### Aimee H Fullerton & Jared Siegel
+### Aimee H Fullerton, Morgan Bond, and Jeff Jorgensen
 
 aimee.fullerton\@noaa.gov
 
-This repository includes scripts used to modify daily predictions of past and future stream temperatures for the Willamette River using data from Siegel et al. 2023, PLoS Water 2(8) 30000119 and Fullerton et al. in prep. Below are listed each script and the associated the data files called by the script, followed by the data's source (listed only on its the first appearance). Data are available separately.
+This repository includes scripts used to modify daily predictions of past and future stream temperatures for the North Santiam River (Willamette) and compute thermal habitats for salmon above and below dams using data from Siegel et al. 2023, PLoS Water 2(8) 30000119 and Fullerton et al. in prep. Below are listed each script and the associated the data files called by the script, followed by the data's source (listed only on its the first appearance). Data are available separately.
 
 ### 1_impute_ST_usgs_gages.R
 
