@@ -1,26 +1,81 @@
-# Instructions for including your repository in the noaa-nwfsc organization
+# PNW future daily stream temperatures
 
-## Collaborators
+### Aimee H Fullerton & Jared Siegel
 
-If you have NMFS collaborators (i.e. have noaa.gov email) on your repository who are not members of the NMFS GitHub Enterprise Cloud account, have them complete a [user request](https://sites.google.com/noaa.gov/nmfs-st-github-governance-team/github-users). If they are not NOAA FTEs or Affiliates, contact an administrator to help you add them to your repository or to transfer in your repository with outside collaborators.  You will find the list of admins in the [noaa-nwfsc Google folder](https://drive.google.com/drive/folders/1k54HDpe6AcpfZ9LZzdIARFbH6wdi8pGl?usp=sharing).
+aimee.fullerton\@noaa.gov
 
-## For repositories migrated to noaa-nwfsc organization
+This repository includes scripts used to modify daily predictions of past and future stream temperatures for the Willamette River using data from Siegel et al. 2023, PLoS Water 2(8) 30000119 and Fullerton et al. in prep. Below are listed each script and the associated the data files called by the script, followed by the data's source (listed only on its the first appearance). Data are available separately.
 
-1) Update your `README.md` file to include the disclaimer and an open access license. See below for a description of licenses.
-2) Add a description and info on who created the content (otherwise the org managers will not know who to contact).
-3) Add tags (far right side on repo) to help users find repositories. See the other repositories for examples.
-4) Add an open LICENSE file. For government work, we are required to use an open LICENSE. If non-government FTEs were contributors and the repository does not yet have an open license on it, make sure all parties agree before applying an open source license. For data/documentation use CC0 and for code use preferrably Apache 2.0. Both are public domain type licenses.
-5) Add the file `.github/workflows/secretSCAN.yml`. This will check for token and keys that are accidentally committed to a repository.
+### 1_impute_ST_usgs_gages.R
 
-## For new repositories in noaa-nwfsc organization
+shapefiles/Willamette_gauge_locations.shp : USGS National Water Dashboard
 
-1) Add a description and info on who created the content to this `README.md` file (otherwise the org managers will not know who to contact).
-2) Add tags (far right side on repo) to help users find repositories. See the other repositories for examples.
-3) Confirm that the License (see License tab) is appropriate for the content in your repository. Adding an open LICENSE file at the start of work clarifies that this work is open source (public domain) to any future contributors to the work. 
-4) Confirm that the file `.github/workflows/secretSCAN.yml` is in this repository. This will check for token and keys that are accidentally committed to a repository.
-5) Once you have completed the first four steps, delete the instructions from this `README.md`.
+### 2_adjust_ST_below_dams.R
+
+COMID_to_HUC12.csv : Siegel et al. (2023)
+
+shapefiles/PNW_DAMS : National Dam Inventory
+
+willamette_temperature_gage_info.csv : USGS National Water Dashboard
+
+NHDPlus17/NHDSnapshot/Hydrography/NHDFlowline.shp  & …/PlusFlowlineVAA.dbf : National Hydrography Dataset v2
+
+Willamette_LCM_COMIDs.csv : Subset of NHD v2 streamlines
+
+Retrospective & future stream temperatures predicted for HUC 170900 : Riverscape Data Exchange
+
+imputed_data_rf_mod_1990.csv : Produced in step 1
+
+### 3_predict_pAdj_retro.R
+
+spatial_data.csv : Siegel et al. (2023)
+
+170900_retrospective.fst : Produced in step 2
+
+final_dat.fst : Produced in step 2
+
+### 4_predict_pAdj_GCMs.R
+
+final_data.fst :  Produced in step 3
+
+### 5_data_processing_metrics.R
+
+shapefiles/NHDv2_Willamette_SOgt2.shp : subset of NHD v2 streamlines
+
+shapefiles/NHDv2_Willamette_LCM.shp : life cycle modeling boundaries, M. Bond, pers com
+
+shapefiles/north-santiam_WBD.shp : NHD v2 Watershed Boundary Dataset
+
+shapefiles/north-santiam_streams.shp : NHD v2 Hydrography
+
+data_1990-2021.fst : Produced in step 2
+
+cc-pAdj_cmb.fst : Produced in step 4
+
+### 6_report_plots.R
+
+### 7_manuscript_plots.R
+
+comid.dat.csv : Produced in step 5
+
+Detroit_data.csv : Produced in step 5
+
+Detroit_cc_data.csv : Produced in step 5
+
+thermal_metrics_north-santiam.csv : Produced in step 5
+
+thermal_metrics_north-santiam_cc.csv : Produced in step 5
+
+thermal_metrics_north-santiam_Chinook.csv : Produced in step 5
+
+thermal_metrics_north-santiam_Chinook_cc.csv : Produced in step 5
+
+NorthSantiam.retro.data.list.RData : Produced in step 5
+
+NorthSantiam.ST_median.data.list.RData : Produced in step 5
+
+nsan_shapefiles.RData : Produced in step 5
 
 # Disclaimer
 
 This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of Commerce. All NOAA GitHub project content is provided on an "as is" basis and the user assumes responsibility for its use. Any claims against the Department of Commerce or Department of Commerce bureaus stemming from the use of this GitHub project will be governed by all applicable Federal law. Any reference to specific commercial products, processes, or services by service mark, trademark, manufacturer, or otherwise, does not constitute or imply their endorsement, recommendation or favoring by the Department of Commerce. The Department of Commerce seal and logo, or the seal and logo of a DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by DOC or the United States Government.
-
