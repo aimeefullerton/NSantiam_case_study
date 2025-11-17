@@ -237,4 +237,4 @@ final_dat <- final_dat[, -c(1,27)]
 colnames(final_dat)[22] <- "Imputed"
 colnames(final_dat)[25] <- "pAdj"
 colnames(final_dat)[26] <- "prd.pAdj"
-fst::write_fst(final_dat, "data/final_data.fst", compress = 80)
+fst::write_fst(final_dat, "data/170900_retro_adj.fst", compress = 80)
