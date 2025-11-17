@@ -57,7 +57,7 @@ hist(sites$Freq, breaks = 20)
 
 # Merge to remove site data with < 365
 wil_wil_all <- merge(wil_all,sites, by.x = c("site_no"), by.y = c("Var1"), all.x = T)
-wil_all <- wil_all[complete.cases(wil_all$Freq),]
+wil_all <- wil_all[complete.cases(wil_wil_all$Freq),]
 wil_all <- select(wil_all, site_no, Date, Wtemp)
 
 # Long to wide
@@ -97,11 +97,11 @@ melted_df$site_no <- gsub("^.{0,6}", "", melted_df$variable)
 # melted_df$Variable <- "Timepoint"
 
 # Final data set with imputed data
-wil_1990_imputed<-select(melted_df, site_no, Date, Value)
+wil_1990_imputed <- select(melted_df, site_no, Date, Value)
 
 # Plot one of the sites
 # Subset McKenzie river sites 14162500,14159110
-mcsub<-subset(wil_1990_imputed, site_no==c("14148000"))
+mcsub <- subset(wil_1990_imputed, site_no==c("14148000"))
 
 mcsub %>%
   ggplot( aes(x=Date, y=Value, group=site_no, color=site_no)) +
