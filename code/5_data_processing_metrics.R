@@ -64,10 +64,9 @@ save(wil_streams, anad_streams, wil_ms, nsan_streams, nsan_huc, nsan_nhd, dams,
 
 
 # RETRO: time series of min/median/max and just medians ----
-retro.dat <- fst::read_fst("data/data_1990-2021.fst")
+retro.dat <- fst::read_fst("data/170900_retro_adj.fst")
 retro.dat <- dplyr::left_join(retro.dat, comid.dat[, c("COMID", "LCM_Reach")], by = "COMID")
-retro.dat <- retro.dat[, c("COMID", "tim.date", "prd.stream_temp", "year", "Pathlength", "WillPL_KM", "WillPL_Mi", "DistDS", "pDA", "river_mi", "site_no", "Value", "vAdj", "prd.pAdj", "LCM_Reach")]
-retro.dat <- fst::write_fst(retro.dat, "data/data_1990-2021.fst")
+retro.dat <- fst::write_fst(retro.dat, "data/170900_retro_adj.fst")
 
 pop <- "North Santiam"; pop2 <- gsub(" ", "", pop)
 
@@ -107,7 +106,7 @@ save(NorthSantiam.retro.medians, file = paste0("data/", pop2, ".retro.medians.RD
 
 # CLIMATE: time series of min/median/max and just medians ----
 climate_scenarios <- c("ST_med", "CanESM2", "CCSM4", "CNRM-CM5", "CSIRO-Mk3-6-0", "GDFL-ESM2M", "HadGEM2-CC", "HadGEM2-ES", "inmcm4", "IPSL-CM5A-MR", "MIROC")
-cc.dat <- fst::read_fst("data/cc-pAdj_cmb.fst")
+cc.dat <- fst::read_fst("data/170900_cc_adj.fst")
 
 pop <- "North Santiam"; pop2 <- gsub(" ", "", pop)
 
@@ -161,7 +160,7 @@ for(climate_scenario in climate_scenarios){
 # RETRO: thermal metrics ----
 
 load("data/nsan_shapefiles.RData")
-retro.dat <- fst::read_fst("data/data_1990-2021.fst")
+retro.dat <- fst::read_fst("data/170900_retro_adj.fst")
 subwat <- "north-santiam"
 species <- "Omykiss"
 ws <- fncSetWatershed(subwat)
@@ -228,7 +227,7 @@ data.table::fwrite(met.dat, paste0("data/thermal_metrics_", subwat, "_", species
 
 # CLIMATE: thermal metrics ----
 # use median across GCMs, adjusted below dams
-ccd <- fst::read_fst("data/cc-pAdj_cmb.fst")
+ccd <- fst::read_fst("data/170900_cc_adj.fst")
 ccd$vAdj <- ccd$pAdj.ST_med * ccd$ST_med
 vaa <- read.csv("data/shapefiles/PlusFlowlineVAA.csv")
 ccd <- dplyr::left_join(ccd, vaa[, c("ComID", "Pathlength")], by = c("COMID" = "ComID"))
@@ -299,8 +298,8 @@ data.table::fwrite(met.dat, paste0("data/thermal_metrics_", subwat, "_", species
 
 
 # Below dam matrices data ----
-dat <- fst::read_fst("data/data_1990-2021.fst") # for 2011, 2015
-#dat <- fst::read_fst("data/cc-pAdj_cmb.fst") #for 2050, 2080
+dat <- fst::read_fst("data/170900_retro_adj.fst") # for 2011, 2015
+#dat <- fst::read_fst("170900_cc_adj.fst ") #for 2050, 2080
 #dat$vAdj <- dat$ST_med * dat$pAdj.ST_med
 dat <- dplyr::left_join(dat, wil_streams[, c("COMID", "Pathlength")], by = "COMID")
 
