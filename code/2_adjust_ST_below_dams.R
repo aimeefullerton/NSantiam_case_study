@@ -14,7 +14,7 @@ source("code/functions.R")
 options (scipen = 999)
 
 # Load info about LCM reaches and associated COMIDs
-comid.dat <- read.csv("data/Willamette_LCM_COMIDs.csv")[,-1]
+comid.dat <- read.csv("data/Willamette_LCM_COMIDs.csv")
 LCM_Reaches <- sort(unique(comid.dat$LCM_Reach))
 
 # Load COMIDs and HUC info for later sorting
@@ -30,7 +30,7 @@ damnms <- c("BIG CLIFF", "FOSTER", "COUGAR", "DEXTER", "Middle_Willamette", "Upp
 dams <- st_read("data/shapefiles", "PNW_DAMS")
 
 # Load USGS gage data
-gage_info <- read.csv("data/willamette_temperature_gage_info.csv")[,c(3,4,6,7,10,13:18)]
+gage_info <- read.csv("data/willamette_temperature_gage_info.csv")
 gage_info <- gage_info[!is.na(gage_info$Keep),]
 gage_data <- read.csv("data/imputed_data_rf_mod_1990.csv")[,-1]
 gage_dat <- merge(gage_data, gage_info[gage_info$Keep == 1, c("Site_Numbe", "COMID")], by.x = "site_no", by.y = "Site_Numbe", all.y = T)
