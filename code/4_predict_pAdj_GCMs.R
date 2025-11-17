@@ -38,7 +38,7 @@ for(i in 1:length(cc_folders)){
 }
 
 # Read in retrospective data including pAdj info
-st <- fst::read_fst("data/final_data.fst")
+st <- fst::read_fst("data/170900_retro_adj.fst")
 
 # Make adjusted Value and Proportion for CC data
 st$pAdj <- st$vAdj / st$prd.stream_temp
@@ -154,9 +154,9 @@ cc <- fst::read_fst("data/170900_AllGCMs_wMed.fst")
 cc$tim.date <- as.Date(cc$tim.date)
 for(climate_scenario in climate_scenarios){
   c1 <- fst::read_fst(paste0("data/", climate_scenario, "_pAdj.fst"))
-  cc <- dplyr::left_join(cc, c1[, c("COMID", "tim.date", paste0("pAdj.", climate_scenario)], by = c("COMID", "tim.date"))
+  cc <- dplyr::left_join(cc, c1[, c("COMID", "tim.date", paste0("pAdj.", climate_scenario))], by = c("COMID", "tim.date"))
 }
-fst::write_fst(cc, "data/cc-pAdj_cmb.fst", compress = 80)
+fst::write_fst(cc, "data/170900_cc_adj.fst", compress = 80)
 summary(cc)
 
 
@@ -166,7 +166,7 @@ plot(foo$tim.date, foo[,"GDFL-ESM2M"], type = "l", ylab = "Stream temperature (C
 lines(foo$tim.date, (foo[,"GDFL-ESM2M"] * foo[, "pAdj.GDFL-ESM2M"]), col = 2)
 
 # Boxplots of pAdj
-td <- fst::read_fst("data/cc-pAdj_cmb.fst")
+td <- fst::read_fst("data/170900_cc_adj.fst")
 
 climate_scenarios <- c("CanESM2", "CCSM4", "CNRM-CM5", "CSIRO-Mk3-6-0", "GDFL-ESM2M", "HadGEM2-CC", "HadGEM2-ES", "inmcm4", "IPSL-CM5A-MR", "MIROC")
 
