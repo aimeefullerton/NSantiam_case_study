@@ -20,7 +20,7 @@ willamette_temperature_gage_info.csv : USGS National Water Dashboard
 
 NHDPlus17/NHDSnapshot/Hydrography/NHDFlowline.shp  & …/PlusFlowlineVAA.dbf : National Hydrography Dataset v2
 
-Willamette_LCM_COMIDs.csv : Subset of NHD v2 streamlines
+Willamette_LCM_COMIDs.csv : Subset of NHD v2 streamlines used in NOAA Fisheries salmon life cycle models
 
 Retrospective & future stream temperatures predicted for HUC 170900 : Riverscape Data Exchange
 
@@ -32,11 +32,9 @@ spatial_data.csv : Siegel et al. (2023)
 
 170900_retrospective.fst : Produced in step 2
 
-final_dat.fst : Produced in step 2
-
 ### 4_predict_pAdj_GCMs.R
 
-final_data.fst :  Produced in step 3
+170900_retro_adj.fst :  Produced in step 3
 
 ### 5_data_processing_metrics.R
 
@@ -48,33 +46,21 @@ shapefiles/north-santiam_WBD.shp : NHD v2 Watershed Boundary Dataset
 
 shapefiles/north-santiam_streams.shp : NHD v2 Hydrography
 
-data_1990-2021.fst : Produced in step 2
+170900_retro_adj.fst : Produced in step 2
 
-cc-pAdj_cmb.fst : Produced in step 4
+170900_cc_adj.fst : Produced in step 4
 
 ### 6_report_plots.R
 
 ### 7_manuscript_plots.R
 
-comid.dat.csv : Produced in step 5
+Detroit_data.csv and Detroit_cc_data.csv : Produced in step 5
 
-Detroit_data.csv : Produced in step 5
+thermal_metrics_north-santiam.csv, thermal_metrics_north-santiam_cc.csv : Produced in step 5
 
-Detroit_cc_data.csv : Produced in step 5
+thermal_metrics_north-santiam_Chinook.csv, thermal_metrics_north-santiam_Chinook_cc.csv : Produced in step 5
 
-thermal_metrics_north-santiam.csv : Produced in step 5
-
-thermal_metrics_north-santiam_cc.csv : Produced in step 5
-
-thermal_metrics_north-santiam_Chinook.csv : Produced in step 5
-
-thermal_metrics_north-santiam_Chinook_cc.csv : Produced in step 5
-
-NorthSantiam.retro.data.list.RData : Produced in step 5
-
-NorthSantiam.ST_median.data.list.RData : Produced in step 5
-
-nsan_shapefiles.RData : Produced in step 5
+thermal_metrics_north-santiam_Omykiss.csv, thermal_metrics_north-santiam_Omykiss_cc.csv : Produced in step 5
 
 # Disclaimer
 
