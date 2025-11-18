@@ -22,7 +22,7 @@ NHDPlus17/NHDSnapshot/Hydrography/NHDFlowline.shp  & …/PlusFlowlineVAA.dbf : 
 
 Willamette_LCM_COMIDs.csv : Subset of NHD v2 streamlines used in NOAA Fisheries salmon life cycle models
 
-Retrospective & future stream temperatures predicted for HUC 170900 : Riverscape Data Exchange
+Retrospective & future stream temperatures predicted for HUC 170900 : Riverscape Data Exchange https://data.riverscapes.net/pt/streamtemp
 
 imputed_data_rf_mod_1990.csv : Produced in step 1
 
