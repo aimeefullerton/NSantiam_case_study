@@ -50,23 +50,33 @@ rm(list = ls(pattern = "ll")); rm(list = ls(pattern = "vv")); rm(r, x, i, idx, d
 
 
 # Below Dams Heatmap
-dam_data <- read.csv("data/Detroit_data.csv")
-
-yy = 2020
+dam_data <- data.table::fread("data/Detroit_data.csv") #or data/Detroit_cc_data.csv
+dam_data <- as.data.frame(dam_data)
+yy = 2015 #2011, 2015, 2050, 2080
 cols2keep <- colnames(dam_data)[grep(yy, colnames(dam_data))]
 dat <- dam_data[,c("Pathlength", cols2keep), drop = F]
+if(ncol(dat) > 366) dat <- dat[,-which(colnames(dat) %in% paste0(yy, "-02-29"))]
 mat <- as.matrix(dat)
+rk_locations <- sort(unique(mat[,"Pathlength"]))
+days <- 1:365 # Julian days
+data.matrix <- mat[order(mat[,1]), -1]
+data.matrix <- data.matrix[-nrow(data.matrix),] #remove the last row which has Pathlength of NA
+colr <- hcl.colors(14, "YlOrRd", rev = TRUE)
 
-png(paste0("plots/heatmap", yy, ".png"), width = 6.5, height = 5, units = "in", res = 600)
-  colr <- hcl.colors(14, "YlOrRd", rev = TRUE)
-  par(las = 1, mar = c(4,4,2,2))
-  fields::image.plot(t(mat), ylab = "River kilometer", xlab = "Julian day", axes = F, col = colr, zlim = c(0,28)); box()
-  axis(1, at = seq(0, 1, length.out = 12), labels = round(seq(0, 365, length.out = 12)))
-  axis(2, at = seq(0, max(dat$Pathlength, na.rm = T), length.out = 10) / max(dat$Pathlength, na.rm = T), 
-       labels = round(seq(min(dat$Pathlength, na.rm = T), max(dat$Pathlength, na.rm = T), length.out = 10)))
+# Pass the coordinates to image.plot()
+png(paste0("plots/heatmap", yy, ".png"), width = 6.5, height = 6, units = "in", res = 600)
+fields::image.plot(
+  las = 1,
+  x = days,
+  y = rk_locations,
+  z = t(data.matrix), # NOTE: Assumes locations are rows, days are columns
+  ylab = "River kilometer",
+  xlab = "Julian day",
+  col = colr,
+  zlim = c(0,28)
+)
 dev.off()
 rm(dat, colr, cols2keep)
-
 
 # Figure 6 North Santiam ----
 
